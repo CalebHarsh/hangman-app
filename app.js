@@ -3,7 +3,7 @@ var inquirer = require("inquirer")
 var colors = require("colors")
 
 //array of words
-var hangmanWords = ["Hello World", "Foo", "JavaScript", "Function", "Visual Studios", "MySQL"]
+var hangmanWords = ["Hello World", "Foo", "JavaScript", "Function", "Visual Studios", "MySQL", "Hyper Text Markup Language", "variable", "Debugging"]
 
 var nodeWord = getNewWord()
 gamePrompt()
@@ -18,23 +18,32 @@ function gamePrompt() {
 
   }]).then(answers => {
 
+    console.log("")
+
     var gameGuess = answers.userGuess.match(/([a-zA-Z])/)
 
     if (nodeWord.checkGuess(gameGuess[0])) {
-      console.log("Correct".green)
+
+      console.log("   !!!!Correct!!!!".green)
+
     } else {
-      console.log("Incorrect".red)
+
+      console.log("  !!!!Incorrect!!!".red)
       nodeWord.numberGuesses--
-      console.log("You have ".bold.red + nodeWord.numberGuesses + " guesses left".bold.red)
+      console.log(`You have ${nodeWord.numberGuesses} guesses left`.bold.red)
+      
     }
+    console.log("")
+    nodeWord.displayWord()
 
     if (nodeWord.numberGuesses > 0) {
-      
+
       if (nodeWord.checkSolved()) {
+  
         playAgain()
       }
       else {
-        nodeWord.displayWord()
+
         gamePrompt()
       }
     } else {
@@ -45,10 +54,14 @@ function gamePrompt() {
 }
 
 function playAgain() {
+  console.log("")
+
   inquirer.prompt([{
+
     message: "Play Again",
     name: "playAgain",
     type: "confirm"
+
   }]).then(answers => {
 
     if (answers.playAgain) {
