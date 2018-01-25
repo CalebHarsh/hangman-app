@@ -14,7 +14,7 @@ var Word = function (word) {
 //Display the word
 Word.prototype.displayWord = function () {
   var display = this.word.map(letter => {
-    return letter.letter != " " ? letter.getDisplay() : " "
+    return letter.getDisplay()
   }).join(" ")
   console.log(display)
 }
