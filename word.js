@@ -2,7 +2,7 @@ var Letter = require("./letter.js")
 
 //Word Constructor
 var Word = function (word) {
-  console.log(word)
+  console.log("")
   this.word = word.split("").map(letter => {
     return new Letter(letter)
   })
@@ -11,6 +11,7 @@ var Word = function (word) {
   this.displayWord()
 }
 
+//Display the word
 Word.prototype.displayWord = function () {
   var display = this.word.map(letter => {
     return letter.letter != " " ? letter.getDisplay() : " "
@@ -18,6 +19,7 @@ Word.prototype.displayWord = function () {
   console.log(display)
 }
 
+//check if word has been solved
 Word.prototype.checkSolved = function () {
   var guessedCount = 0
   this.word.forEach(letter => {
@@ -29,6 +31,7 @@ Word.prototype.checkSolved = function () {
   return this.solved
 }
 
+//cehck letters if they have been guessed
 Word.prototype.checkGuess = function(a) {
   var test = false
   this.word.forEach(letter => {
@@ -38,3 +41,4 @@ Word.prototype.checkGuess = function(a) {
 }
 
 module.exports = Word
+

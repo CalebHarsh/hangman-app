@@ -5,21 +5,27 @@ var colors = require("colors")
 //array of words
 var hangmanWords = ["Hello World", "Foo", "JavaScript", "Function", "Visual Studios", "MySQL", "Hyper Text Markup Language", "variable", "Debugging"]
 
+//gets a word from word bank
 var nodeWord = getNewWord()
 gamePrompt()
 
+//game inquirer 
 function gamePrompt() {
   console.log("")
 
+  //ask for letter
   inquirer.prompt([{
 
     message: "Guess a letter.",
-    name: "userGuess"
+    name: "userGuess",
+    validate: (guess) => {
+      return (/[a-zA_Z]/).test(guess) ? true : console.log("  >Not a valid guess")
+    }
 
   }]).then(answers => {
 
     console.log("")
-
+    
     var gameGuess = answers.userGuess.match(/([a-zA-Z])/)
 
     if (nodeWord.checkGuess(gameGuess[0])) {
@@ -47,7 +53,7 @@ function gamePrompt() {
         gamePrompt()
       }
     } else {
-      console.log("Game Over".underline.bold.red)
+      console.log("\n   Game Over".underline.bold.red)
       playAgain()
     }
   })
@@ -71,6 +77,7 @@ function playAgain() {
   })
 }
 
+//get a new word from the word bank
 function getNewWord() {
   var randNum = Math.floor(Math.random() * 6)
   return gameWord = new Word(hangmanWords[randNum])
